@@ -4,18 +4,16 @@ import { HEROES } from './mock-heroes';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HeroService {
-
-  constructor() { }
+  constructor() {}
 
   getHeroes(): Observable<Hero[]> {
     return of(HEROES);
   }
 
   getHero(id: number): Observable<Hero> {
-    return of(HEROES.find(hero => hero.id === id));
+    return of(HEROES.find((hero) => hero.id === id));
   }
-  
 }

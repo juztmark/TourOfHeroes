@@ -1,18 +1,28 @@
-<div *ngIf="hero">
-
-    <h2>{{hero.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{hero.id}}</div>
-    <div>
-      <label>name:
-        <input [(ngModel)]="hero.name" placeholder="name"/>
+<h2>{{ hero.name }} Details</h2>
+<div class="box">
+  <ul>
+    <li>
+      <label>
+        Name:
+        <input [(ngModel)]="hero.name" placeholder="name" />
       </label>
-    </div>
-    <div>
-      <ul>
-        <li *ngFor="let item of hero.items">
-          <app-item-detail [item]="item"></app-item-detail>
-        </li>
-      </ul>
-    </div>
-    <button (click)="goBack()">go back</button>
-  </div>
+    </li>
+    <li>Id: {{ hero.id }}</li>
+  </ul>
+  <h3>Items</h3>
+  <ul>
+    <li *ngFor="let item of hero.items">
+      <a routerLink="/item/detail/{{ item.id }}">
+        <span class="badge">{{ item.id }}</span> {{ item.name }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="buy">
+  <a routerLink="/shop/{{ hero.id }}">BUY</a>
+</div>
+
+<div class="back-button">
+  <button (click)="goBack()">BACK</button>
+</div>

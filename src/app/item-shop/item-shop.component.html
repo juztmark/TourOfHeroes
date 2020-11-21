@@ -5,6 +5,13 @@
       <a routerLink="/item/detail/{{ item.id }}">
         <span class="badge">{{ item.id }}</span> {{ item.name }}
       </a>
+      <div *ngIf="canBuy(item)" class="buybutton back-button">
+        <button (click)="buy(item)">BUY</button>
+      </div>
     </li>
   </ul>
+</div>
+
+<div class="back-button">
+  <button (click)="goBack()">BACK</button>
 </div>

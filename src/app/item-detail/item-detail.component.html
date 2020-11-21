@@ -1,6 +1,12 @@
-<div *ngIf="item">
-<h2>{{item.name | uppercase}} Details</h2>
-<div><span>id: </span>{{item.id}}</div>
-<div><span>name </span>{{item.name}}</div>
-<div><span>price: </span>{{item.price}}</div>
+<h2>{{ item.name }} Details</h2>
+<div class="box">
+  <ul>
+    <li>Id: {{ item.id }}</li>
+    <li>Name: {{ item.name }}</li>
+    <li>Price: {{ item.price }}</li>
+  </ul>
+</div>
+
+<div class="back-button">
+  <button (click)="goBack()">BACK</button>
 </div>

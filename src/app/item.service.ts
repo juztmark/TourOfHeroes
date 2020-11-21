@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item';
-import { Items } from './mock-items';
+import { AllItems, MockItems } from './mock-items';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemService {
+  constructor() {}
 
-  constructor() { }
+  getAllItems(): Observable<Item[]> {
+    return of(AllItems);
+  }
 
-  getItems(): Observable<Item[]> {
-    return of(Items);
+  getMockItems(): Observable<Item[]> {
+    return of(MockItems);
+  }
+
+  getItem(id: number): Observable<Item> {
+    return of(AllItems.find((e) => e.id === id));
   }
 }

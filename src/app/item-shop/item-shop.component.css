@@ -1,0 +1,14 @@
+li {
+  min-width: 325px;
+}
+
+.buybutton {
+  display: inline;
+  float: right;
+  margin-left: 30px;
+}
+
+.buybutton button {
+  color: #69f0ae;
+  font-size: 25px;
+}
