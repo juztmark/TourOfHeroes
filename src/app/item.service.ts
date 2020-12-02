@@ -1,23 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item';
 import { AllItems, MockItems } from './mock-items';
-import { Observable, of } from 'rxjs';
+import { Observable, of, pipe } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemService {
-  constructor() {}
+  private itemsUrl = 'api/items';
 
-  getAllItems(): Observable<Item[]> {
-    return of(AllItems);
-  }
+  constructor(private http: HttpClient) {}
 
-  getMockItems(): Observable<Item[]> {
-    return of(MockItems);
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(this.itemsUrl).pipe(
+      tap((_) => console.log('fetched items')),
+      catchError(this.handleError<Item[]>('getItems', []))
+    );
   }
 
   getItem(id: number): Observable<Item> {
-    return of(AllItems.find((e) => e.id === id));
+    const url = `${this.itemsUrl}/${id}`;
+    return this.http.get<Item>(url).pipe(
+      tap((_) => console.log(`fetched item id=${id}`)),
+      catchError(this.handleError<Item>(`getItem id=${id}`))
+    );
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      console.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
   }
 }

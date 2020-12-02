@@ -1,10 +1,32 @@
 <h2>My Heroes</h2>
 <div class="box">
+  <div class="dropdown">
+    <button class="dropbtn">
+      {{ sortBy | titlecase }}
+      <i class="fa fa-sort"></i>
+    </button>
+    <div class="dropdown-content">
+      <button (click)="sort('id')">Id</button>
+      <button (click)="sort('name')">Name</button>
+      <button (click)="sort('money')">Money</button>
+    </div>
+  </div>
   <ul>
     <li *ngFor="let hero of heroes">
       <a routerLink="/detail/{{ hero.id }}">
         <span class="badge">{{ hero.id }}</span> {{ hero.name }}
       </a>
+      <div class="buybutton back-button">
+        <button title="delete hero" (click)="delete(hero)">X</button>
+      </div>
     </li>
   </ul>
+</div>
+
+<h2>Add Hero</h2>
+<div class="box">
+  <input #heroName placeholder="Name" />
+  <div class="back-button add-button">
+    <button (click)="add(heroName.value); heroName.value = ''">Add</button>
+  </div>
 </div>

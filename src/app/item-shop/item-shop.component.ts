@@ -28,7 +28,7 @@ export class ItemShopComponent implements OnInit {
   }
 
   getItems(): void {
-    this.itemService.getAllItems().subscribe((items) => (this.items = items));
+    this.itemService.getItems().subscribe((items) => (this.items = items));
   }
 
   getHero(): void {
