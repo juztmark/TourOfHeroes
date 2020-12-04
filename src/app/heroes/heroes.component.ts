@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { orderBy } from 'lodash';
-import { Button } from 'protractor';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { heroSortOptions, Sort, sortTypes } from '../sort';
 
 @Component({
   selector: 'app-heroes',
@@ -10,19 +10,28 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
-  sortBy: string = 'name';
   heroes: Hero[];
+  sortOptions = heroSortOptions;
+  sortTypes = sortTypes;
+  sort: Sort = {
+    sortBy: 'name',
+    sortType: 'asc',
+  };
 
   constructor(private heroService: HeroService) {}
 
   getHeroes(): void {
     this.heroService
       .getHeroes()
-      .subscribe((heroes) => (this.heroes = orderBy(heroes, this.sortBy)));
+      .subscribe(
+        (heroes) =>
+          (this.heroes = orderBy(heroes, this.sort.sortBy, this.sort.sortType))
+      );
   }
 
-  sort(sortby: string) {
-    this.sortBy = sortby;
+  handleSort(sortby: string, sortType: 'asc' | 'desc') {
+    this.sort.sortBy = sortby;
+    this.sort.sortType = sortType;
     this.getHeroes();
   }
 

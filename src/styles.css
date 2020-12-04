@@ -49,3 +49,56 @@ h2 {
   font-size: 70px;
   color: #ff5252;
 }
+
+.dropbtn {
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 5px;
+  background-color: #121212;
+  color: white;
+  padding: 16px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  width: 50%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 100%;
+  background-color: #121212;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdown-content button.selected {
+  background-color: #448aff;
+}
+
+.dropdown-content button {
+  margin: 3px 0;
+  width: 50%;
+  border-radius: 5px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #448aff;
+}
+
+.dropdown-sortTypes {
+  width: 50%;
+  border-top: white solid 2px;
+}

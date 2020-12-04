@@ -2,13 +2,26 @@
 <div class="box">
   <div class="dropdown">
     <button class="dropbtn">
-      {{ sortBy | titlecase }}
+      {{ sort.sortBy | titlecase }}
       <i class="fa fa-sort"></i>
     </button>
     <div class="dropdown-content">
-      <button (click)="sort('id')">Id</button>
-      <button (click)="sort('name')">Name</button>
-      <button (click)="sort('price')">Price</button>
+      <button
+        *ngFor="let option of sortOptions"
+        [class.selected]="option === sort.sortBy"
+        (click)="handleSort(option, sort.sortType)"
+      >
+        {{ option | titlecase }}
+      </button>
+      <div class="dropdown-sortTypes">
+        <button
+          *ngFor="let type of sortTypes"
+          [class.selected]="type === sort.sortType"
+          (click)="handleSort(sort.sortBy, type)"
+        >
+          {{ type | titlecase }}
+        </button>
+      </div>
     </div>
   </div>
   <ul>
