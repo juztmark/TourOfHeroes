@@ -15,6 +15,7 @@ import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ItemShopComponent } from './item-shop/item-shop.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { ItemSearchComponent } from './item-search/item-search.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     DashboardComponent,
     ItemShopComponent,
     HeroSearchComponent,
+    ItemSearchComponent,
   ],
   imports: [
     BrowserModule,
