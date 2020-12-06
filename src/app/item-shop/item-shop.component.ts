@@ -13,6 +13,7 @@ import { ItemService } from '../item.service';
 })
 export class ItemShopComponent implements OnInit {
   items: Item[];
+  displayedColumns: string[] = ['id', 'name', 'price', 'buy'];
   hero: Hero;
 
   constructor(
@@ -43,6 +44,7 @@ export class ItemShopComponent implements OnInit {
   buy(item: Item) {
     this.hero.money -= item.price;
     this.hero.items.push(item);
+    this.heroService.updateHero(this.hero).subscribe();
   }
 
   goBack() {

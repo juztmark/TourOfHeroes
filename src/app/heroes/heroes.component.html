@@ -1,45 +1,48 @@
-<h2>My Heroes</h2>
-<div class="box">
-  <div class="dropdown">
-    <button class="dropbtn">
-      {{ sort.sortBy | titlecase }}
-      <i class="fa fa-sort"></i>
-    </button>
-    <div class="dropdown-content">
-      <button
-        *ngFor="let option of sortOptions"
-        [class.selected]="option === sort.sortBy"
-        (click)="handleSort(option, sort.sortType)"
-      >
-        {{ option | titlecase }}
-      </button>
-      <div class="dropdown-sortTypes">
-        <button
-          *ngFor="let type of sortTypes"
-          [class.selected]="type === sort.sortType"
-          (click)="handleSort(sort.sortBy, type)"
-        >
-          {{ type | titlecase }}
+<div>
+  <table mat-table [dataSource]="heroes" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let hero">{{ hero.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let hero">{{ hero.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="money">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Money</th>
+      <td mat-cell *matCellDef="let hero">{{ hero.money }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let hero">
+        <button mat-raised-button color="primary" (click)="delete(hero)">
+          X
         </button>
-      </div>
-    </div>
-  </div>
-  <ul>
-    <li *ngFor="let hero of heroes">
-      <a routerLink="/detail/{{ hero.id }}">
-        <span class="badge">{{ hero.id }}</span> {{ hero.name }}
-      </a>
-      <div class="buybutton back-button">
-        <button title="delete hero" (click)="delete(hero)">X</button>
-      </div>
-    </li>
-  </ul>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [routerLink]="[heroRoute, row.id]"
+    ></tr>
+  </table>
 </div>
 
-<h2>Add Hero</h2>
-<div class="box">
-  <input #heroName placeholder="Name" />
-  <div class="back-button add-button">
-    <button (click)="add(heroName.value); heroName.value = ''">Add</button>
-  </div>
-</div>
+<mat-card>
+  <mat-card-title class="title">Add Hero</mat-card-title>
+  <form>
+    <input #heroName matInput class="test-input" placeholder="Name" />
+  </form>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="add(heroName.value); heroName.value = ''"
+  >
+    Add
+  </button>
+</mat-card>

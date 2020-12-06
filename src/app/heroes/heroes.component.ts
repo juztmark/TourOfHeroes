@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { orderBy } from 'lodash';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
-import { heroSortOptions, Sort, sortTypes } from '../sort';
 
 @Component({
   selector: 'app-heroes',
@@ -10,47 +10,33 @@ import { heroSortOptions, Sort, sortTypes } from '../sort';
   styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[];
-  sortOptions = heroSortOptions;
-  sortTypes = sortTypes;
-  sort: Sort = {
-    sortBy: 'name',
-    sortType: 'asc',
-  };
+  displayedColumns: string[] = ['id', 'name', 'money', 'delete'];
+  heroes: MatTableDataSource<Hero>;
+  heroRoute: string = '/detail/';
 
+  @ViewChild(MatSort) sort: MatSort;
   constructor(private heroService: HeroService) {}
 
-  getHeroes(): void {
-    this.heroService
-      .getHeroes()
-      .subscribe(
-        (heroes) =>
-          (this.heroes = orderBy(heroes, this.sort.sortBy, this.sort.sortType))
-      );
-  }
-
-  handleSort(sortby: string, sortType: 'asc' | 'desc') {
-    this.sort.sortBy = sortby;
-    this.sort.sortType = sortType;
-    this.getHeroes();
-  }
-
   ngOnInit(): void {
-    this.getHeroes();
+    this.heroService.getHeroes().subscribe((heroes) => {
+      this.heroes = new MatTableDataSource(heroes);
+      this.sort.sort({ id: 'name', start: 'asc' } as MatSortable);
+      this.heroes.sort = this.sort;
+    });
   }
-
   add(name: string): void {
     name = name.trim();
     if (!name) {
       return;
     }
     this.heroService.addHero(name).subscribe((hero) => {
-      this.heroes.push(hero);
+      this.heroes.data.push(hero);
+      this.heroes._updateChangeSubscription();
     });
   }
 
-  delete(hero: Hero): void {
-    this.heroes = this.heroes.filter((h) => h !== hero);
-    this.heroService.deleteHero(hero).subscribe();
+  delete(hero: Hero) {
+    this.heroes.data.splice(this.heroes.data.indexOf(hero), 1);
+    this.heroes._updateChangeSubscription();
   }
 }

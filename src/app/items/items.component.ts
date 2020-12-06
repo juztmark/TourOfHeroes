@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
-import { orderBy } from 'lodash';
-import { itemSortOptions, Sort, sortTypes } from '../sort';
 
 @Component({
   selector: 'app-items',
@@ -10,32 +10,19 @@ import { itemSortOptions, Sort, sortTypes } from '../sort';
   styleUrls: ['./items.component.css'],
 })
 export class ItemsComponent implements OnInit {
-  items: Item[];
-  sortTypes: string[] = sortTypes;
-  sortOptions: string[] = itemSortOptions;
-  sort: Sort = {
-    sortBy: 'name',
-    sortType: 'asc',
-  };
+  displayedColumns: string[] = ['id', 'name', 'price'];
+  items: MatTableDataSource<Item>;
+  itemRoute: string = '/item/detail/';
+
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private itemService: ItemService) {}
 
-  getItems(): void {
-    this.itemService
-      .getItems()
-      .subscribe(
-        (items) =>
-          (this.items = orderBy(items, this.sort.sortBy, this.sort.sortType))
-      );
-  }
-
   ngOnInit(): void {
-    this.getItems();
-  }
-
-  handleSort(sortBy: string, sortType: 'asc' | 'desc') {
-    this.sort.sortBy = sortBy;
-    this.sort.sortType = sortType;
-    this.getItems();
+    this.itemService.getItems().subscribe((items) => {
+      this.items = new MatTableDataSource(items);
+      this.sort.sort(({ id: 'name', start: 'asc'}) as MatSortable);
+      this.items.sort = this.sort;
+    });
   }
 }

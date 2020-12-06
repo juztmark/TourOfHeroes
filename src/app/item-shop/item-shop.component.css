@@ -12,3 +12,13 @@ li {
   color: #69f0ae;
   font-size: 25px;
 }
+
+table {
+  margin: 0 auto;
+  width: 50%;
+}
+
+th,
+td {
+  font-size: 20px;
+}

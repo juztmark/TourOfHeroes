@@ -16,6 +16,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ItemShopComponent } from './item-shop/item-shop.component';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { ItemSearchComponent } from './item-search/item-search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material-module';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { ItemSearchComponent } from './item-search/item-search.component';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false,
     }),
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
