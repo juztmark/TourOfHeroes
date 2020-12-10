@@ -1,0 +1,43 @@
+<h2>Create Hero</h2>
+<form autocomplete="off" [formGroup]="heroForm" (submit)="submit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Hero name</mat-label>
+    <input type="text" matInput formControlName="name" required />
+    <mat-error *ngIf="heroForm.controls.name.invalid">{{
+      getErroMessage("name")
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Hero money</mat-label>
+    <input matInput formControlName="money" required />
+    <mat-error *ngIf="heroForm.controls.money.invalid">{{
+      getErroMessage("money")
+    }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Hero health</mat-label>
+    <input matInput formControlName="health" required />
+    <mat-error *ngIf="heroForm.controls.health.invalid">{{
+      getErroMessage("health")
+    }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Hero strength</mat-label>
+    <input matInput formControlName="strength" required />
+    <mat-error *ngIf="heroForm.controls.strength.invalid">{{
+      getErroMessage("strength")
+    }}</mat-error>
+  </mat-form-field>
+  <div class="submit-btn">
+    <button
+      [disabled]="!heroForm.valid"
+      mat-raised-button
+      color="primary"
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</form>

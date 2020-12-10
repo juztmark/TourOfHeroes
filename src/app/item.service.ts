@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item';
-import { AllItems, MockItems } from './mock-items';
-import { Observable, of, pipe } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ItemService {
   private itemsUrl = 'api/items';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +27,13 @@ export class ItemService {
     const url = `${this.itemsUrl}/${id}`;
     return this.http.get<Item>(url).pipe(
       tap((_) => console.log(`fetched item id=${id}`)),
+      catchError(this.handleError<Item>())
+    );
+  }
+
+  addItem(item: Item): Observable<Item> {
+    return this.http.post<Item>(this.itemsUrl, item, this.httpOptions).pipe(
+      tap((newItem: Item) => console.log(`added item w/ id=${newItem.id}`)),
       catchError(this.handleError<Item>())
     );
   }

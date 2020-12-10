@@ -7,3 +7,9 @@ th,
 td {
   font-size: 20px;
 }
+
+.create {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 30px;
+}

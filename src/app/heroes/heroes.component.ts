@@ -10,7 +10,14 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'money', 'delete'];
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'money',
+    'health',
+    'strength',
+    'delete',
+  ];
   heroes: MatTableDataSource<Hero>;
   heroRoute: string = '/detail/';
 
@@ -22,16 +29,6 @@ export class HeroesComponent implements OnInit {
       this.heroes = new MatTableDataSource(heroes);
       this.sort.sort({ id: 'name', start: 'asc' } as MatSortable);
       this.heroes.sort = this.sort;
-    });
-  }
-  add(name: string): void {
-    name = name.trim();
-    if (!name) {
-      return;
-    }
-    this.heroService.addHero(name).subscribe((hero) => {
-      this.heroes.data.push(hero);
-      this.heroes._updateChangeSubscription();
     });
   }
 

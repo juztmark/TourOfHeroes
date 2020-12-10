@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemsComponent } from './items/items.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
@@ -18,6 +18,8 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { ItemSearchComponent } from './item-search/item-search.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
+import { HeroCreateComponent } from './hero-create/hero-create.component';
+import { ItemCreateComponent } from './item-create/item-create.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MaterialModule } from './material-module';
     ItemShopComponent,
     HeroSearchComponent,
     ItemSearchComponent,
+    HeroCreateComponent,
+    ItemCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import { MaterialModule } from './material-module';
     }),
     BrowserAnimationsModule,
     MaterialModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
