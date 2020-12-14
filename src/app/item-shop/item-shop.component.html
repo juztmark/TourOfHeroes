@@ -18,7 +18,12 @@
     <ng-container matColumnDef="buy">
       <th mat-header-cell *matHeaderCellDef>Buy</th>
       <td mat-cell *matCellDef="let item">
-        <button *ngIf="canBuy(item)" mat-raised-button color="primary" (click)="buy(item)">
+        <button
+          *ngIf="canBuy(item)"
+          mat-raised-button
+          color="primary"
+          (click)="buy(item)"
+        >
           Buy
         </button>
       </td>
