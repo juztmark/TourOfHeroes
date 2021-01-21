@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { AuthService } from '../auth/auth.service';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { UserType } from '../user/userType';
 
 @Component({
   selector: 'app-heroes',
@@ -20,9 +22,13 @@ export class HeroesComponent implements OnInit {
   ];
   heroes: MatTableDataSource<Hero>;
   heroRoute: string = '/detail/';
+  isAdmin: boolean;
 
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private heroService: HeroService) {}
+  constructor(
+    private heroService: HeroService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.heroService.getHeroes().subscribe((heroes) => {
@@ -30,6 +36,9 @@ export class HeroesComponent implements OnInit {
       this.sort.sort({ id: 'name', start: 'asc' } as MatSortable);
       this.heroes.sort = this.sort;
     });
+    this.authService.LoggedUser.subscribe(
+      (user) => (this.isAdmin = user.userType === UserType.Admin ? true : false)
+    );
   }
 
   delete(hero: Hero) {

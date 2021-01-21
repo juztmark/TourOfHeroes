@@ -1,27 +1,33 @@
-<h2>Create Item</h2>
-<form autocomplete="off" [formGroup]="itemForm" (submit)="submit()">
-  <mat-form-field appearance="outline">
-    <mat-label>Item name</mat-label>
-    <input matInput formControlName="name" required />
-    <mat-error *ngIf="itemForm.controls.name.invalid">{{
-      getErroMessage("name")
-    }}</mat-error>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Item price</mat-label>
-    <input matInput formControlName="price" required />
-    <mat-error *ngIf="itemForm.controls.price.invalid">{{
-      getErroMessage("price")
-    }}</mat-error>
-  </mat-form-field>
-  <div class="submit-btn">
-    <button
-      [disabled]="!itemForm.valid"
-      mat-raised-button
-      color="primary"
-      type="submit"
-    >
-      Submit
-    </button>
-  </div>
-</form>
+<div *ngIf="!isAdmin" class="label">
+  <mat-error>You don't have permission</mat-error>
+</div>
+
+<div *ngIf="isAdmin">
+  <h2>Create Item</h2>
+  <form autocomplete="off" [formGroup]="itemForm" (submit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Item name</mat-label>
+      <input matInput formControlName="name" required />
+      <mat-error *ngIf="itemForm.controls.name.invalid">{{
+        getErroMessage("name")
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Item price</mat-label>
+      <input matInput formControlName="price" required />
+      <mat-error *ngIf="itemForm.controls.price.invalid">{{
+        getErroMessage("price")
+      }}</mat-error>
+    </mat-form-field>
+    <div class="submit-btn">
+      <button
+        [disabled]="!itemForm.valid"
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

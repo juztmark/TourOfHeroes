@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { HeroCreateComponent } from './hero-create/hero-create.component';
 import { ItemCreateComponent } from './item-create/item-create.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ItemCreateComponent } from './item-create/item-create.component';
     ItemSearchComponent,
     HeroCreateComponent,
     ItemCreateComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

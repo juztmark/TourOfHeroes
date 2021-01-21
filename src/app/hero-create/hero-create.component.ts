@@ -8,6 +8,8 @@ import {
 import { Hero } from '../hero';
 import { Location } from '@angular/common';
 import { HeroService } from '../hero.service';
+import { AuthService } from '../auth/auth.service';
+import { UserType } from '../user/userType';
 
 @Component({
   selector: 'app-hero-create',
@@ -17,6 +19,7 @@ import { HeroService } from '../hero.service';
 export class HeroCreateComponent implements OnInit {
   hero: Hero;
   heroForm: FormGroup;
+  isAdmin: boolean;
 
   statFormControl = [
     Validators.required,
@@ -25,7 +28,11 @@ export class HeroCreateComponent implements OnInit {
     ValidateNumber,
   ];
 
-  constructor(private location: Location, private heroService: HeroService) {}
+  constructor(
+    private location: Location,
+    private heroService: HeroService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.heroForm = new FormGroup({
@@ -38,6 +45,9 @@ export class HeroCreateComponent implements OnInit {
       health: new FormControl('', [...this.statFormControl]),
       strength: new FormControl('', [...this.statFormControl]),
     });
+    this.authService.LoggedUser.subscribe(
+      (user) => (this.isAdmin = user.userType === UserType.Admin ? true : false)
+    );
   }
 
   getErroMessage(input: string) {

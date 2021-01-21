@@ -8,6 +8,8 @@ import {
 import { Item } from '../item';
 import { Location } from '@angular/common';
 import { ItemService } from '../item.service';
+import { AuthService } from '../auth/auth.service';
+import { UserType } from '../user/userType';
 
 @Component({
   selector: 'app-item-create',
@@ -17,8 +19,13 @@ import { ItemService } from '../item.service';
 export class ItemCreateComponent implements OnInit {
   item: Item;
   itemForm: FormGroup;
+  isAdmin: boolean;
 
-  constructor(private location: Location, private itemService: ItemService) {}
+  constructor(
+    private location: Location,
+    private itemService: ItemService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.itemForm = new FormGroup({
@@ -29,6 +36,9 @@ export class ItemCreateComponent implements OnInit {
       ]),
       price: new FormControl('', [Validators.required, ValidateNumber]),
     });
+    this.authService.LoggedUser.subscribe(
+      (user) => (this.isAdmin = user.userType === UserType.Admin ? true : false)
+    );
   }
 
   getErroMessage(input: string) {
